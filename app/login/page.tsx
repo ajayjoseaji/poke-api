@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import EmailIcon from "../components/icons/Email";
 import LockIcon from "../components/icons/Lock";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 type Inputs = {
   email: string;
@@ -12,8 +12,8 @@ type Inputs = {
 
 export default function Login() {
   const {
-    register,
     handleSubmit,
+    control,
     formState: { errors, isSubmitSuccessful },
   } = useForm<Inputs>();
   const onSubmit = (data: Inputs) => console.log(data);
@@ -30,17 +30,19 @@ export default function Login() {
               <span className="text-[#ff6b72] text-sm font-sans mr-1">*</span>
               <h4 className="text-[14px] text-[#455560]  font-medium">Email</h4>
             </div>
-            <div className="relative">
-              <div className=" absolute top-3 left-[12px]">
-                <EmailIcon />
-              </div>
-              <input
-                className="h-[40px] text-inherit text-sm w-full pl-8 border rounded-lg border-neutral-200 focus:border-blue-400 hover:border-blue-400 outline-none caret-neutral-300 transition delay-150 duration-100"
-                type="email"
-                placeholder="Email"
-                {...register("email", { required: true })}
-              ></input>
-            </div>
+            <Controller
+              name="email"
+              control={control}
+              rules={{ required: "Please input your email" }}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  placeholder="Email"
+                  type="email"
+                  prefix={<EmailIcon />}
+                />
+              )}
+            />
           </div>
 
           {/* Password */}
@@ -51,17 +53,19 @@ export default function Login() {
                 Password
               </h4>
             </div>
-            <div className="relative">
-              <div className=" absolute top-3 left-[12px]">
-                <LockIcon />
-              </div>
-              <input
-                className="h-[40px] text-inherit text-sm w-full pl-8 border rounded-lg border-neutral-200 focus:border-blue-400 hover:border-blue-400 outline-none caret-neutral-300 transition delay-150 duration-100"
-                type="password"
-                placeholder="Password"
-                {...register("password", { required: true })}
-              ></input>
-            </div>
+            <Controller
+              name="password"
+              control={control}
+              rules={{ required: "Please input your password" }}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  placeholder="Password"
+                  type="password"
+                  prefix={<LockIcon />}
+                />
+              )}
+            />
           </div>
 
           <Button
