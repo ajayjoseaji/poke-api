@@ -18,9 +18,7 @@ export default function Login() {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<Inputs>({
-    defaultValues: { username: "admin", password: "password" },
-  });
+  } = useForm<Inputs>();
   const auth = useAuth();
   const router = useRouter();
 
