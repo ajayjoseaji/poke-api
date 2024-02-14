@@ -38,7 +38,7 @@ export const PokemonList = ({ pokemonList }: { pokemonList: PokemonProps }) => {
             <div className="flex justify-between px-4 items-center">
               <h2 className="text-lg font-semibold capitalize">{item.name}</h2>
               <EyeOutlined
-                className="hover:text-[#3ea7f7]"
+                className="hover:text-[#3ea7f7] text-[20px]"
                 onClick={() => {
                   setIsModalOpen(true), setApiUrl(item.url);
                 }}

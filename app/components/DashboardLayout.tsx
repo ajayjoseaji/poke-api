@@ -7,10 +7,21 @@ import {
   MenuUnfoldOutlined,
   UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
+  AppstoreOutlined,
   DownOutlined,
+  LogoutOutlined,
+  HomeOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Button, Dropdown, Space, Avatar, MenuProps } from "antd";
+import {
+  Layout,
+  Menu,
+  Button,
+  Dropdown,
+  Space,
+  Avatar,
+  MenuProps,
+  ConfigProvider,
+} from "antd";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { useAuth } from "./AuthContext";
 import Link from "next/link";
@@ -20,13 +31,13 @@ import Image from "next/image";
 const sideBarItems = [
   {
     key: "1",
-    icon: <UserOutlined />,
+    icon: <HomeOutlined />,
     label: "Homepage",
     path: "/",
   },
   {
     key: "2",
-    icon: <VideoCameraOutlined />,
+    icon: <AppstoreOutlined />,
     label: "Dashboard",
     path: "/dashboard",
   },
@@ -81,6 +92,7 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
     {
       label: "Logout",
       key: "1",
+      icon: <LogoutOutlined />,
     },
   ];
 
@@ -103,17 +115,29 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
               width={collapsed ? 50 : 100}
               height={70}
             />
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
-                marginLeft: collapsed ? 5 : 125,
+            <ConfigProvider
+              theme={{
+                components: {
+                  Button: {
+                    onlyIconSize: 20,
+                    colorLink: "#455560",
+                    colorLinkHover: "#3e79f7",
+                  },
+                },
               }}
-            />
+            >
+              <Button
+                type="link"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => setCollapsed(!collapsed)}
+                style={{
+                  fontSize: "16px",
+                  width: 64,
+                  height: 64,
+                  marginLeft: collapsed ? 5 : 125,
+                }}
+              />
+            </ConfigProvider>
           </div>
           <Dropdown menu={{ items, onClick }}>
             <span onClick={(e) => e.preventDefault()}>
@@ -136,20 +160,41 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
           theme="light"
           className="pt-6"
         >
+          {!collapsed && (
+            <h4 className="font-extrabold uppercase text-[12px] py-[12px] px-[24px] text-[#1a335399]">
+              Dashboard
+            </h4>
+          )}
           {defaultSelectedKey && (
-            <Menu
-              theme="light"
-              mode="inline"
-              defaultSelectedKeys={[defaultSelectedKey]}
+            <ConfigProvider
+              theme={{
+                components: {
+                  Menu: {
+                    itemHoverBg: "transparent",
+                    itemHoverColor: "#3e79f7",
+                    itemColor: "#455560",
+                  },
+                },
+              }}
             >
-              {sideBarItems.map((item) => (
-                <Menu.Item key={item.key} icon={item.icon}>
-                  <Link href={item.path}>
-                    <span>{item.label}</span>
-                  </Link>
-                </Menu.Item>
-              ))}
-            </Menu>
+              <Menu
+                theme="light"
+                mode="inline"
+                defaultSelectedKeys={[defaultSelectedKey]}
+              >
+                {sideBarItems.map((item) => (
+                  <Menu.Item
+                    key={item.key}
+                    icon={item.icon}
+                    style={{ borderRadius: "0" }}
+                  >
+                    <Link href={item.path}>
+                      <span className="font-semibold">{item.label}</span>
+                    </Link>
+                  </Menu.Item>
+                ))}
+              </Menu>
+            </ConfigProvider>
           )}
         </Sider>
         <Content
