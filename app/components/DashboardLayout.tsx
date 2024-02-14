@@ -13,24 +13,30 @@ import {
 import { Layout, Menu, Button, Dropdown, Space, Avatar, MenuProps } from "antd";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { useAuth } from "./AuthContext";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const sideBarItems = [
   {
     key: "1",
     icon: <UserOutlined />,
     label: "Homepage",
+    path: "/",
   },
   {
     key: "2",
     icon: <VideoCameraOutlined />,
     label: "Dashboard",
+    path: "/dashboard",
   },
   {
     key: "3",
     icon: <UploadOutlined />,
     label: "Dummy page",
+    path: "/dummy",
   },
 ];
+
 type LayoutProps = {
   children: ReactNode;
 };
@@ -76,6 +82,12 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
       key: "1",
     },
   ];
+
+  const pathname = usePathname();
+  const defaultSelectedKey = sideBarItems.find(
+    (item) => pathname === item.path
+  )?.key;
+
   return (
     <>
       <Header style={{ padding: 0, background: "#fff" }}>
@@ -112,12 +124,21 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
           theme="light"
           className="pt-6"
         >
-          <Menu
-            theme="light"
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            items={sideBarItems}
-          />
+          {defaultSelectedKey && (
+            <Menu
+              theme="light"
+              mode="inline"
+              defaultSelectedKeys={[defaultSelectedKey]}
+            >
+              {sideBarItems.map((item) => (
+                <Menu.Item key={item.key} icon={item.icon}>
+                  <Link href={item.path}>
+                    <span>{item.label}</span>
+                  </Link>
+                </Menu.Item>
+              ))}
+            </Menu>
+          )}
         </Sider>
         <Content
           style={{
