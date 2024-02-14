@@ -1,6 +1,6 @@
 import { Layout } from "antd";
-import { TableList } from "../components/Table";
-import { DashboardLayout } from "../components/DashboardLayout";
+import { TableList } from "../../components/Table";
+import { DashboardLayout } from "../../components/DashboardLayout";
 
 const Dashboard: React.FC = () => {
   return (

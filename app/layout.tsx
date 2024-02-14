@@ -3,7 +3,7 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import classNames from "classnames";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import { AuthProvider } from "./components/AuthContext";
+import { AuthProvider } from "../components/AuthContext";
 
 const inter = Manrope({ subsets: ["latin"] });
 

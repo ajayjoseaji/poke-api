@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Layout } from "antd";
-import { useAuth } from "./components/AuthContext";
+import { useAuth } from "../components/AuthContext";
 import { Header } from "antd/es/layout/layout";
 import Image from "next/image";
 import Link from "next/link";

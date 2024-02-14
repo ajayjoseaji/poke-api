@@ -1,10 +1,10 @@
 "use client";
 
 import { Button, Input, notification } from "antd";
-import EmailIcon from "../components/icons/Email";
-import LockIcon from "../components/icons/Lock";
+import EmailIcon from "../../components/icons/Email";
+import LockIcon from "../../components/icons/Lock";
 import { Controller, useForm } from "react-hook-form";
-import { useAuth } from "../components/AuthContext";
+import { useAuth } from "../../components/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
