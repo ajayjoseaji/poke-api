@@ -8,11 +8,13 @@ import {
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
+  DownOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Button } from "antd";
+import { Layout, Menu, Button, Dropdown, Space, Avatar, MenuProps } from "antd";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
+import { useAuth } from "./AuthContext";
 
-const items = [
+const sideBarItems = [
   {
     key: "1",
     icon: <UserOutlined />,
@@ -39,6 +41,7 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const screens = useBreakpoint();
+  const { logout } = useAuth();
 
   useEffect(() => {
     const handleCollapse = () => {
@@ -57,26 +60,41 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
       window.removeEventListener("resize", handleCollapse);
     };
   }, [screens]);
+
+  const onClick: MenuProps["onClick"] = () => {
+    logout();
+  };
+
+  const items: MenuProps["items"] = [
+    {
+      label: "Logout",
+      key: "1",
+    },
+  ];
   return (
     <>
-      <Header
-        style={{
-          padding: 0,
-          background: "#fff",
-          // boxShadow: "rgba(0, 0, 0, 0.15) 0px 1px 4px -1px",
-        }}
-      >
-        <Button
-          type="text"
-          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          onClick={() => setCollapsed(!collapsed)}
-          style={{
-            fontSize: "16px",
-            width: 64,
-            height: 64,
-            marginLeft: collapsed ? 60 : 250,
-          }}
-        />
+      <Header style={{ padding: 0, background: "#fff" }}>
+        <div className="flex justify-between pr-6">
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: "16px",
+              width: 64,
+              height: 64,
+              marginLeft: collapsed ? 60 : 250,
+            }}
+          />
+          <Dropdown menu={{ items, onClick }}>
+            <span onClick={(e) => e.preventDefault()}>
+              <Space>
+                <Avatar />
+                <DownOutlined />
+              </Space>
+            </span>
+          </Dropdown>
+        </div>
       </Header>
 
       <Layout>
@@ -93,7 +111,7 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
             theme="light"
             mode="inline"
             defaultSelectedKeys={["1"]}
-            items={items}
+            items={sideBarItems}
           />
         </Sider>
         <Content
