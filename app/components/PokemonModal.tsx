@@ -34,46 +34,46 @@ export const PokemonModal = ({
     <>
       {pokemonData && (
         <Modal
-          // title={pokemonData.name}
-          open={isModalOpen}
+          visible={isModalOpen}
           onCancel={() => setIsModalOpen(false)}
+          footer={null}
         >
-          <h1 className="text-2xl font-bold pt-4">
-            {pokemonData.name.charAt(0).toUpperCase() +
-              pokemonData.name.slice(1)}
-          </h1>
-          <div
-            className="m-4"
-            // style={{ position: "relative", width: "300px", height: "300px" }}
-          >
-            <Image
-              width={200}
-              height={200}
-              src={pokemonData.sprites.other["official-artwork"].front_default}
-              alt={"Picture of " + pokemonData.name}
-              style={{ objectFit: "contain" }}
-              className="transition-opacity opacity-0 duration-[2s]"
-              onLoadingComplete={(image) => image.classList.remove("opacity-0")}
-            />
-          </div>
-          <h3>Weight: {pokemonData.weight}</h3>
-          <div className="flex-col">
-            {pokemonData.stats.map((statObject: any) => {
-              const statName = statObject.stat.name;
-              const statValue = statObject.base_stat;
-
-              return (
-                <div
-                  className="flex items-stretch"
-                  style={{ width: "500px" }}
-                  key={statName}
-                >
-                  <h3 className="p-3 w-2/4">
-                    {statName}: {statValue}
-                  </h3>
+          <div>
+            <h1 className="text-xl text-center font-bold pt-4">
+              Name:{" "}
+              {pokemonData.name.charAt(0).toUpperCase() +
+                pokemonData.name.slice(1)}
+            </h1>
+            <div className="m-4 flex">
+              <Image
+                width={200}
+                height={200}
+                src={
+                  pokemonData.sprites.other["official-artwork"].front_default
+                }
+                alt={"Picture of " + pokemonData.name}
+                style={{ objectFit: "contain" }}
+                className="transition-opacity opacity-0 duration-[2s]"
+                onLoadingComplete={(image) =>
+                  image.classList.remove("opacity-0")
+                }
+              />
+              <div className="flex flex-col items-start m-4 font-semibold text-base">
+                <h3 className="">Species: {pokemonData.species.name}</h3>
+                <h3>Weight: {pokemonData.weight}</h3>
+                <h3>Height: {pokemonData.height}</h3>
+                <div className="flex">
+                  <h3 className="mr-1">Abilities: </h3>
+                  <ul>
+                    {pokemonData.abilities.map((ability: any, index: any) => (
+                      <li className="list-disc ml-6" key={index}>
+                        {ability.ability.name}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              );
-            })}
+              </div>
+            </div>
           </div>
         </Modal>
       )}
