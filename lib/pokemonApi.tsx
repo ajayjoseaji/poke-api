@@ -6,8 +6,15 @@ export async function getPokemonList() {
   return data.results;
 }
 
-export async function getPokemon(name: string) {
-  const response = await fetch(POKEMON_API + "pokemon/" + name);
-  const data = await response.json();
-  return data;
+export async function fetchPokemonData(url: string): Promise<any> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching Pokemon data:", error);
+    throw error;
+  }
 }

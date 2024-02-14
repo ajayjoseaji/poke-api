@@ -1,3 +1,4 @@
+import { fetchPokemonData } from "@/lib/pokemonApi";
 import { Modal } from "antd";
 import Image from "next/image";
 import { useState, type Dispatch, useEffect } from "react";
@@ -12,23 +13,19 @@ export const PokemonModal = ({
   url: string | null;
 }) => {
   const [pokemonData, setPokemonData] = useState<any>(null);
+
   useEffect(() => {
-    if (url) {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(url);
-          const data = await response.json();
-          setPokemonData(data);
-        } catch (error) {
-          console.error("Error fetching Pokemon data:", error);
-        } finally {
-        }
-      };
-      if (isModalOpen) {
-        fetchData();
-      }
+    if (url && isModalOpen) {
+      fetchData();
     }
   }, [url, isModalOpen]);
+
+  async function fetchData() {
+    try {
+      const data = await fetchPokemonData(url!);
+      setPokemonData(data);
+    } catch (error) {}
+  }
 
   return (
     <>
