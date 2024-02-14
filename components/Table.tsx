@@ -1,4 +1,4 @@
-import { getPokemonList } from "@/lib/pokemonAPI";
+import { getPokemonList } from "@/lib/pokemonApi";
 import { PokemonList } from "./PokemonList";
 
 export const TableList = async () => {
