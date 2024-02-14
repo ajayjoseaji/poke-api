@@ -8,6 +8,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { Loading } from "./Loading";
 
 type Login = {
   (username: string, password: string):
@@ -32,6 +33,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -47,6 +49,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         router.push("/login");
       }
     }
+    setLoading(false);
   }, []);
 
   const login = (username: string, password: string) => {
@@ -68,7 +71,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider value={{ token, login, logout }}>
-      {children}
+      {loading ? <Loading /> : children}
     </AuthContext.Provider>
   );
 };
