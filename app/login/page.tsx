@@ -22,12 +22,6 @@ export default function Login() {
   const auth = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (auth && auth.token) {
-      router.push("/dashboard");
-    }
-  }, [auth, router]);
-
   const onSubmit = async (data: Inputs) => {
     const { username, password } = data;
     const result = auth?.login(username, password);

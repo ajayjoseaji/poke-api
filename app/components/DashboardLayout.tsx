@@ -111,16 +111,18 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
       >
         <div className="flex justify-between px-6">
           <div className="flex">
-            <Image
-              src={`${
-                collapsed
-                  ? "https://emilus.themenate.net/img/logo-sm.png"
-                  : "https://emilus.themenate.net/img/logo.png"
-              }`}
-              alt="logo"
-              width={collapsed ? 50 : 100}
-              height={70}
-            />
+            <Link href={"/"}>
+              <Image
+                src={`${
+                  collapsed
+                    ? "https://emilus.themenate.net/img/logo-sm.png"
+                    : "https://emilus.themenate.net/img/logo.png"
+                }`}
+                alt="logo"
+                width={collapsed ? 50 : 100}
+                height={70}
+              />
+            </Link>
             <ConfigProvider
               theme={{
                 components: {

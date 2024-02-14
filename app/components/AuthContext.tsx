@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   ReactNode,
   createContext,
@@ -32,13 +32,20 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
-
+  const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
+      if (pathname === "/login") {
+        router.push("/dashboard");
+      }
+    } else {
+      if (pathname !== "/") {
+        router.push("/login");
+      }
     }
   }, []);
 
