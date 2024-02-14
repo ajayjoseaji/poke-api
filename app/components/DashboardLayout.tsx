@@ -15,6 +15,7 @@ import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { useAuth } from "./AuthContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const sideBarItems = [
   {
@@ -91,22 +92,34 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
   return (
     <>
       <Header style={{ padding: 0, background: "#fff" }}>
-        <div className="flex justify-between pr-6">
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
-              marginLeft: collapsed ? 60 : 250,
-            }}
-          />
+        <div className="flex justify-between px-6">
+          <div className="flex">
+            <Image
+              src={`${
+                collapsed
+                  ? "https://emilus.themenate.net/img/logo-sm.png"
+                  : "https://emilus.themenate.net/img/logo.png"
+              }`}
+              alt="logo"
+              width={collapsed ? 50 : 100}
+              height={70}
+            />
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: "16px",
+                width: 64,
+                height: 64,
+                marginLeft: collapsed ? 5 : 125,
+              }}
+            />
+          </div>
           <Dropdown menu={{ items, onClick }}>
             <span onClick={(e) => e.preventDefault()}>
               <Space>
-                <Avatar />
+                <Avatar size={38} icon={<UserOutlined />} />
                 <DownOutlined />
               </Space>
             </span>
