@@ -33,7 +33,7 @@ const sideBarItems = [
     key: "1",
     icon: <HomeOutlined />,
     label: "Homepage",
-    path: "/",
+    path: "/home",
   },
   {
     key: "2",
@@ -102,7 +102,13 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
 
   return (
     <>
-      <Header style={{ padding: 0, background: "#fff" }}>
+      <Header
+        style={{
+          padding: 0,
+          background: "#fff",
+          boxShadow: "rgba(0, 0, 0, 0.15) 0px 1px 4px -1px",
+        }}
+      >
         <div className="flex justify-between px-6">
           <div className="flex">
             <Image
