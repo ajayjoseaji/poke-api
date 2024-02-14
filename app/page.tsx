@@ -15,14 +15,18 @@ export default function Home() {
     <Layout className="h-full" color="#455560">
       <DashboardLayout>
         <div>
-          <h1 className="text-bold text-lg">Welcome to the Landing Page</h1>
+          <h1 className="text-bold text-lg">Pokemon API</h1>
           {token ? (
             <Link href="/dashboard">
-              <Button type="link">Go to Dashboard</Button>
+              <Button type="link" size="large">
+                Go to Dashboard
+              </Button>
             </Link>
           ) : (
             <Link href="/login">
-              <Button type="link">Login</Button>
+              <Button type="link" size="large">
+                Login
+              </Button>
             </Link>
           )}
         </div>
