@@ -32,7 +32,7 @@ const sideBarItems = [
   {
     key: "1",
     icon: <HomeOutlined />,
-    label: "Homepage",
+    label: "Home",
     path: "/home",
   },
   {

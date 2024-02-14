@@ -6,7 +6,7 @@ export const TableList = async () => {
 
   return (
     <>
-      <h2 className="text-center text-4xl font-semibold text-[#1a3353] my-5">
+      <h2 className="text-3xl font-semibold text-[#1a3353] my-5">
         Pokemon List
       </h2>
       <PokemonList pokemonList={pokemonList} />
