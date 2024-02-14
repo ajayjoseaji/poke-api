@@ -22,32 +22,27 @@ export default function Login() {
     defaultValues: { username: "admin", password: "password" },
   });
   const auth = useAuth();
-
-  if (!auth) {
-    return;
-  }
-  const { login, token } = auth;
   const router = useRouter();
+
+  useEffect(() => {
+    if (auth && auth.token) {
+      router.push("/dashboard");
+    }
+  }, [auth, router]);
 
   const onSubmit = async (data: Inputs) => {
     const { username, password } = data;
-    const result = login(username, password);
+    const result = auth?.login(username, password);
 
-    if (result.success) {
+    if (result?.success) {
       router.push("/dashboard");
     } else {
       notification.error({
         message: "Login Failed",
-        description: result.message,
+        description: result?.message,
       });
     }
   };
-
-  useEffect(() => {
-    if (token) {
-      router.push("/dashboard");
-    }
-  }, [token]);
 
   return (
     <div className="h-full bg-hero flex flex-col justify-center items-center p-10">

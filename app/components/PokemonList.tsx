@@ -16,20 +16,15 @@ type PokemonProps = [
 export const PokemonList = ({ pokemonList }: { pokemonList: PokemonProps }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [apiUrl, setApiUrl] = useState<string | null>(null);
-
   const auth = useAuth();
-
-  if (!auth) {
-    return;
-  }
-  const { token } = auth;
   const router = useRouter();
 
   useEffect(() => {
-    if (!token) {
+    if (!auth?.token) {
       router.push("/login");
     }
-  }, [token]);
+  }, [auth, router]);
+
   return (
     <>
       <List

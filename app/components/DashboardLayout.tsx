@@ -43,17 +43,12 @@ type LayoutProps = {
 };
 
 export const DashboardLayout = ({ children }: LayoutProps) => {
-  const { Header, Sider, Content } = Layout;
-
-  const [collapsed, setCollapsed] = useState(false);
-
-  const screens = useBreakpoint();
   const auth = useAuth();
+  const [collapsed, setCollapsed] = useState(false);
+  const screens = useBreakpoint();
+  const pathname = usePathname();
 
-  if (!auth) {
-    return;
-  }
-  const { logout } = auth;
+  const { Header, Sider, Content } = Layout;
 
   useEffect(() => {
     const handleCollapse = () => {
@@ -73,6 +68,11 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
     };
   }, [screens]);
 
+  if (!auth) {
+    return;
+  }
+  const { logout } = auth;
+
   const onClick: MenuProps["onClick"] = () => {
     logout();
   };
@@ -84,7 +84,6 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
     },
   ];
 
-  const pathname = usePathname();
   const defaultSelectedKey = sideBarItems.find(
     (item) => pathname === item.path
   )?.key;

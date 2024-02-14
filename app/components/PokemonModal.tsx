@@ -28,7 +28,7 @@ export const PokemonModal = ({
         fetchData();
       }
     }
-  }, [url]);
+  }, [url, isModalOpen]);
 
   return (
     <>
