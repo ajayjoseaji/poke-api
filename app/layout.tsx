@@ -3,6 +3,7 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import classNames from "classnames";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { AuthProvider } from "./components/AuthContext";
 
 const inter = Manrope({ subsets: ["latin"] });
 
@@ -19,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={classNames(inter.className, "h-screen")}>
-        <AntdRegistry>{children}</AntdRegistry>
+        <AuthProvider>
+          <AntdRegistry>{children}</AntdRegistry>
+        </AuthProvider>
       </body>
     </html>
   );

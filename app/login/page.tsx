@@ -4,9 +4,12 @@ import { Button, Input } from "antd";
 import EmailIcon from "../components/icons/Email";
 import LockIcon from "../components/icons/Lock";
 import { Controller, useForm } from "react-hook-form";
+import { useAuth } from "../components/AuthContext";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 type Inputs = {
-  email: string;
+  username: string;
   password: string;
 };
 
@@ -15,8 +18,28 @@ export default function Login() {
     handleSubmit,
     control,
     formState: { errors, isSubmitSuccessful },
-  } = useForm<Inputs>();
-  const onSubmit = (data: Inputs) => console.log(data);
+  } = useForm<Inputs>({
+    defaultValues: { username: "admin", password: "password" },
+  });
+  const { login, token } = useAuth();
+  const router = useRouter();
+
+  const onSubmit = async (data: Inputs) => {
+    const { username, password } = data;
+    const result = login(username, password);
+
+    if (result.success) {
+      router.push("/dashboard");
+    } else {
+      console.error("Login failed:", result.message);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      router.push("/dashboard");
+    }
+  }, [token]);
 
   return (
     <div className="h-full bg-hero flex flex-col justify-center items-center p-10">
@@ -24,21 +47,23 @@ export default function Login() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <h2 className="mb-6 font-bold text-lg text-center">Login</h2>
 
-          {/* Email */}
+          {/* Username */}
           <div>
             <div className="flex">
               <span className="text-[#ff6b72] text-sm font-sans mr-1">*</span>
-              <h4 className="text-[14px] text-[#455560]  font-medium">Email</h4>
+              <h4 className="text-[14px] text-[#455560]  font-medium">
+                Username
+              </h4>
             </div>
             <Controller
-              name="email"
+              name="username"
               control={control}
-              rules={{ required: "Please input your email" }}
+              rules={{ required: "Please input your username" }}
               render={({ field }) => (
                 <Input
                   {...field}
-                  placeholder="Email"
-                  type="email"
+                  placeholder="username"
+                  type="text"
                   prefix={<EmailIcon />}
                 />
               )}

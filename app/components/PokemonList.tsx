@@ -1,9 +1,11 @@
 "use client";
 
 import { List } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PokemonModal } from "./PokemonModal";
 import { EyeOutlined } from "@ant-design/icons";
+import { useAuth } from "./AuthContext";
+import { useRouter } from "next/navigation";
 
 type PokemonProps = [
   {
@@ -15,6 +17,14 @@ export const PokemonList = ({ pokemonList }: { pokemonList: PokemonProps }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [apiUrl, setApiUrl] = useState<string | null>(null);
 
+  const { token } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!token) {
+      router.push("/login");
+    }
+  }, [token]);
   return (
     <>
       <List
