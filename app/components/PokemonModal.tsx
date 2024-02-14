@@ -39,12 +39,12 @@ export const PokemonModal = ({
           footer={null}
         >
           <div>
-            <h1 className="text-xl text-center font-bold pt-4">
+            <h1 className="text-base md:text-xl text-center font-bold pt-4">
               Name:{" "}
               {pokemonData.name.charAt(0).toUpperCase() +
                 pokemonData.name.slice(1)}
             </h1>
-            <div className="m-4 flex">
+            <div className="m-4 flex flex-col md:flex-row items-center">
               <Image
                 width={200}
                 height={200}
@@ -58,7 +58,7 @@ export const PokemonModal = ({
                   image.classList.remove("opacity-0")
                 }
               />
-              <div className="flex flex-col items-start m-4 font-semibold text-base">
+              <div className="flex flex-col items-start m-4 font-semibold text-sm md:text-base">
                 <h3 className="">Species: {pokemonData.species.name}</h3>
                 <h3>Weight: {pokemonData.weight}</h3>
                 <h3>Height: {pokemonData.height}</h3>
