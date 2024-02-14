@@ -29,18 +29,18 @@ export const PokemonList = ({ pokemonList }: { pokemonList: PokemonProps }) => {
     <>
       <List
         pagination={{
-          pageSize: 5,
+          pageSize: 8,
         }}
         itemLayout="vertical"
         dataSource={pokemonList}
         renderItem={(item, index) => (
           <List.Item key={index}>
             <div className="flex justify-between px-4 items-center">
-              <h2 className="text-sm md:text-base lg:text-lg font-semibold capitalize">
+              <h2 className="text-[#455560] text-sm md:text-base lg:text-lg font-semibold capitalize">
                 {item.name}
               </h2>
               <EyeOutlined
-                className="hover:text-[#3ea7f7] text-[20px]"
+                className="hover:text-[#1677ff] text-[20px]"
                 onClick={() => {
                   setIsModalOpen(true), setApiUrl(item.url);
                 }}
