@@ -17,7 +17,7 @@ export default function Login() {
   const {
     handleSubmit,
     control,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
   } = useForm<Inputs>({
     defaultValues: { username: "admin", password: "password" },
   });
@@ -67,10 +67,16 @@ export default function Login() {
                   {...field}
                   placeholder="username"
                   type="text"
+                  status={`${errors.username ? "error" : ""}`}
                   prefix={<EmailIcon />}
                 />
               )}
             />
+            {errors.username && (
+              <p className="text-xs text-[#ff6b72]">
+                {errors.username.message}
+              </p>
+            )}
           </div>
 
           {/* Password */}
@@ -90,10 +96,16 @@ export default function Login() {
                   {...field}
                   placeholder="Password"
                   type="password"
+                  status={`${errors.password ? "error" : ""}`}
                   prefix={<LockIcon />}
                 />
               )}
             />
+            {errors.password && (
+              <p className="text-xs text-[#ff6b72]">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
           <Button
