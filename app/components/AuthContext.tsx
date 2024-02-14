@@ -9,7 +9,26 @@ import {
   useState,
 } from "react";
 
-const AuthContext = createContext();
+type Login = {
+  (username: string, password: string):
+    | {
+        success: boolean;
+        token: string;
+        message?: undefined;
+      }
+    | {
+        success: boolean;
+        message: string;
+        token?: undefined;
+      };
+};
+
+type AuthContextType = {
+  token: string | null;
+  login: Login;
+  logout: () => void;
+};
+const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
