@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input } from "antd";
+import { Button, Input, notification } from "antd";
 import EmailIcon from "../components/icons/Email";
 import LockIcon from "../components/icons/Lock";
 import { Controller, useForm } from "react-hook-form";
@@ -36,7 +36,10 @@ export default function Login() {
     if (result.success) {
       router.push("/dashboard");
     } else {
-      console.error("Login failed:", result.message);
+      notification.error({
+        message: "Login Failed",
+        description: result.message,
+      });
     }
   };
 
