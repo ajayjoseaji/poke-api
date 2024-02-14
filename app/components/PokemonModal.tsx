@@ -34,17 +34,17 @@ export const PokemonModal = ({
     <>
       {pokemonData && (
         <Modal
-          title="Basic Modal"
+          // title={pokemonData.name}
           open={isModalOpen}
           onCancel={() => setIsModalOpen(false)}
         >
-          <h1 className="text-4xl text-bold pt-4">
+          <h1 className="text-2xl font-bold pt-4">
             {pokemonData.name.charAt(0).toUpperCase() +
               pokemonData.name.slice(1)}
           </h1>
           <div
             className="m-4"
-            style={{ position: "relative", width: "300px", height: "300px" }}
+            // style={{ position: "relative", width: "300px", height: "300px" }}
           >
             <Image
               width={200}

@@ -25,8 +25,8 @@ export const PokemonList = ({ pokemonList }: { pokemonList: PokemonProps }) => {
         dataSource={pokemonList}
         renderItem={(item, index) => (
           <List.Item key={index}>
-            <div className="flex justify-between px-4">
-              <h2 className="text-lg font-semibold">{item.name}</h2>
+            <div className="flex justify-between px-4 items-center">
+              <h2 className="text-lg font-semibold capitalize">{item.name}</h2>
               <EyeOutlined
                 className="hover:text-[#3ea7f7]"
                 onClick={() => {
