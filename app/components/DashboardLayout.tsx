@@ -41,7 +41,12 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const screens = useBreakpoint();
-  const { logout } = useAuth();
+  const auth = useAuth();
+
+  if (!auth) {
+    return;
+  }
+  const { logout } = auth;
 
   useEffect(() => {
     const handleCollapse = () => {

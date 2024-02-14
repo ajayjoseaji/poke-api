@@ -14,7 +14,12 @@ export const HeaderComponent = ({
   collapsed: boolean;
   setCollapsed: Dispatch<boolean>;
 }) => {
-  const { logout } = useAuth();
+  const auth = useAuth();
+
+  if (!auth) {
+    return;
+  }
+  const { logout } = auth;
 
   const { Header } = Layout;
   const onClick: MenuProps["onClick"] = () => {

@@ -21,7 +21,12 @@ export default function Login() {
   } = useForm<Inputs>({
     defaultValues: { username: "admin", password: "password" },
   });
-  const { login, token } = useAuth();
+  const auth = useAuth();
+
+  if (!auth) {
+    return;
+  }
+  const { login, token } = auth;
   const router = useRouter();
 
   const onSubmit = async (data: Inputs) => {
