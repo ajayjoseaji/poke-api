@@ -25,11 +25,12 @@ type Login = {
 };
 
 type AuthContextType = {
-  token: string | null;
+  isLoggedin: boolean;
   login: Login;
   logout: () => void;
 };
 const AuthContext = createContext<AuthContextType | null>(null);
+const publicRoutes = ["/login", "/"];
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
@@ -37,17 +38,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
   const router = useRouter();
 
+  const isLoggedin = !!token;
+
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
-      if (pathname === "/login") {
-        router.push("/dashboard");
-      }
-    } else {
-      if (pathname !== "/") {
-        router.push("/login");
-      }
     }
     setLoading(false);
   }, []);
@@ -69,9 +65,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     router.push("/login");
   };
 
+  const shouldRedirectToLogin = !isLoggedin && !publicRoutes.includes(pathname);
+  const shouldRedirectToDashboard = isLoggedin && pathname === "/login";
+
+  useEffect(() => {
+    if (!loading && shouldRedirectToLogin) {
+      router.push("/login");
+    }
+    if (!loading && shouldRedirectToDashboard) {
+      router.push("/dashboard");
+    }
+  }, [shouldRedirectToLogin, shouldRedirectToDashboard, loading]);
+
+  if (loading || shouldRedirectToLogin || shouldRedirectToDashboard) {
+    return <Loading />;
+  }
+
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
-      {loading ? <Loading /> : children}
+    <AuthContext.Provider value={{ isLoggedin, login, logout }}>
+      {children}
     </AuthContext.Provider>
   );
 };

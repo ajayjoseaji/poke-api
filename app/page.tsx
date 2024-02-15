@@ -11,7 +11,7 @@ export default function Home() {
   if (!auth) {
     return;
   }
-  const { token } = auth;
+  const { isLoggedin } = auth;
   return (
     <Layout className="h-full" color="#455560">
       <Header
@@ -34,7 +34,7 @@ export default function Home() {
               Pokemon API
             </h1>
             <div className="mt-6">
-              {token ? (
+              {isLoggedin ? (
                 <Link href="/dashboard">
                   <Button type="default" size="large">
                     Go to Dashboard
