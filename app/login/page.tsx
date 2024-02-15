@@ -6,7 +6,6 @@ import LockIcon from "../../components/icons/Lock";
 import { Controller, useForm } from "react-hook-form";
 import { useAuth } from "../../components/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 type Inputs = {
   username: string;
@@ -104,6 +103,7 @@ export default function Login() {
             className="mt-4 w-full text-xs"
             type="primary"
             htmlType="submit"
+            style={{ backgroundColor: "#3e79f7" }}
           >
             Sign in
           </Button>
