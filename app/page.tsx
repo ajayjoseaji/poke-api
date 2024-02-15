@@ -20,12 +20,19 @@ export default function Home() {
           boxShadow: "rgba(0, 0, 0, 0.15) 0px 1px 4px -1px",
         }}
       >
-        <Image
-          src={"https://emilus.themenate.net/img/logo.png"}
-          alt="logo"
-          width={100}
-          height={70}
-        />
+        <div className="flex justify-between items-center">
+          <Image
+            src={"https://emilus.themenate.net/img/logo.png"}
+            alt="logo"
+            width={100}
+            height={70}
+          />
+          {!isLoggedin && (
+            <Link href={"/login"}>
+              <Button type="text">Login</Button>
+            </Link>
+          )}
+        </div>
       </Header>
       <div className="relative pt-32 pb-32 flex content-center items-center justify-center">
         <div className="container relative mx-auto">
@@ -33,6 +40,10 @@ export default function Home() {
             <h1 className="text-gray-600 font-semibold text-5xl">
               Pokemon API
             </h1>
+            <p className="mt-4 text-lg text-gray-500">
+              Welcome to the Pokemon API app. Explore the world of Pokemon with
+              our extensive database.
+            </p>
             <div className="mt-6">
               {isLoggedin ? (
                 <Link href="/dashboard">
