@@ -60,7 +60,6 @@ export const PokemonModal = ({
                   }
                   alt={"Picture of " + pokemonData.name}
                   style={{ objectFit: "contain" }}
-                  className="transition-opacity opacity-0 duration-[2s]"
                   onLoadingComplete={(image) =>
                     image.classList.remove("opacity-0")
                   }
