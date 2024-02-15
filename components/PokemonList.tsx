@@ -45,14 +45,11 @@ export const PokemonList = () => {
     }
   };
 
-  const handlePaginationChange = (page: number, pageSize: number) => {
+  const handlePaginationChange = (page: number) => {
     setPagination({ ...pagination, current: page });
   };
   return (
     <>
-      <h2 className="text-xl md:text-3xl font-semibold text-[#1a3353] my-5">
-        Pokemon List
-      </h2>
       {loading ? (
         <Loading />
       ) : (
@@ -63,8 +60,10 @@ export const PokemonList = () => {
             onChange: handlePaginationChange,
             current: pagination.current,
           }}
+          bordered
           itemLayout="vertical"
           dataSource={pokemonList}
+          style={{ paddingTop: 14 }}
           renderItem={(item, index) => (
             <List.Item key={index}>
               <div className="flex justify-between px-4 items-center">
