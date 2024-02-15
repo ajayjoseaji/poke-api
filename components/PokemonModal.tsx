@@ -1,8 +1,7 @@
 import { fetchPokemonData } from "@/lib/pokemonApi";
-import { Modal } from "antd";
+import { Modal, Skeleton } from "antd";
 import Image from "next/image";
 import { useState, type Dispatch, useEffect } from "react";
-import { Loading } from "./Loading";
 
 export const PokemonModal = ({
   isModalOpen,
@@ -33,36 +32,30 @@ export const PokemonModal = ({
       setLoading(false);
     }
   }
+  const imgUrl =
+    pokemonData && pokemonData.sprites.other["official-artwork"].front_default;
 
   return (
     <>
       <Modal
-        visible={isModalOpen}
+        open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={null}
       >
         {loading ? (
-          <Loading />
+          <Skeleton active />
         ) : (
           pokemonData && (
             <div>
-              <h1 className="text-base md:text-xl text-center font-bold pt-4">
-                Name:{" "}
-                {pokemonData.name.charAt(0).toUpperCase() +
-                  pokemonData.name.slice(1)}
+              <h1 className="text-base md:text-xl text-center font-bold pt-4 capitalize">
+                Name: {pokemonData.name}
               </h1>
               <div className="m-4 flex flex-col md:flex-row items-center">
                 <Image
                   width={200}
                   height={200}
-                  src={
-                    pokemonData.sprites.other["official-artwork"].front_default
-                  }
+                  src={imgUrl}
                   alt={"Picture of " + pokemonData.name}
-                  style={{ objectFit: "contain" }}
-                  onLoadingComplete={(image) =>
-                    image.classList.remove("opacity-0")
-                  }
                 />
                 <div className="flex flex-col items-start m-4 font-semibold text-sm md:text-base">
                   <h3 className="">Species: {pokemonData.species.name}</h3>
