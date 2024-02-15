@@ -1,6 +1,5 @@
 import { fetchPokemonData } from "@/lib/pokemonApi";
-import { Modal, Skeleton } from "antd";
-import Image from "next/image";
+import { Image, Modal, Skeleton } from "antd";
 import { useState, type Dispatch, useEffect } from "react";
 
 export const PokemonModal = ({
@@ -54,6 +53,12 @@ export const PokemonModal = ({
                   height={200}
                   src={imgUrl}
                   alt={"Picture of " + pokemonData.name}
+                  placeholder={
+                    <Skeleton.Image
+                      active
+                      style={{ width: 200, height: 200 }}
+                    />
+                  }
                 />
                 <div className="flex flex-col items-start m-4 font-semibold text-sm md:text-base">
                   <h3 className="">Species: {pokemonData.species.name}</h3>
