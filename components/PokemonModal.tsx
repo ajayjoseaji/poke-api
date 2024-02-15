@@ -26,8 +26,6 @@ export const PokemonModal = ({
       setLoading(true);
       const data = await fetchPokemonData(url!);
       setPokemonData(data);
-    } catch (error) {
-      console.error("Error fetching Pokemon data:", error);
     } finally {
       setLoading(false);
     }

@@ -40,8 +40,6 @@ export const PokemonList = () => {
         ...prevState,
         total: response.count,
       }));
-    } catch (error) {
-      console.error("Error fetching Pokemon list:", error);
     } finally {
       setLoading(false);
     }
