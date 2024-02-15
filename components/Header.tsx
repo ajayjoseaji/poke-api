@@ -93,10 +93,13 @@ export const HeaderComponent = ({
           </ConfigProvider>
         </div>
         <Dropdown menu={{ items, onClick }}>
-          <span onClick={(e) => e.preventDefault()}>
+          <span onClick={(e) => e.preventDefault()} className="cursor-pointer">
             <Space>
               <Avatar size={38} icon={<UserOutlined />} />
-              <DownOutlined />
+              <span className="text-[#455560] text-[14px] font-semibold">
+                Admin
+              </span>
+              {/* <DownOutlined /> */}
             </Space>
           </span>
         </Dropdown>
